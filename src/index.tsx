@@ -1,8 +1,18 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import {App} from './App';
 import reportWebVitals from './reportWebVitals';
+import 'antd/dist/antd.dark.min.css';
+
+// Ace editor plugins
+import 'ace-builds/webpack-resolver';
+import 'ace-builds/src-noconflict/mode-javascript';
+import 'ace-builds/src-noconflict/mode-typescript';
+import 'ace-builds/src-noconflict/mode-css';
+import 'ace-builds/src-noconflict/mode-less';
+import 'ace-builds/src-noconflict/mode-html';
+import 'ace-builds/src-noconflict/ext-language_tools';
+import 'ace-builds/src-noconflict/theme-twilight';
 
 ReactDOM.render(
   <React.StrictMode>
