@@ -1,4 +1,4 @@
-import {makeAutoObservable, runInAction} from 'mobx';
+import {makeAutoObservable} from 'mobx';
 import {contentGenerator} from '../cmd/contentGenerator';
 import {fileGenerator} from '../cmd/fileGenerator';
 import {ConsoleMessage} from '../components/Console';
@@ -239,9 +239,6 @@ class StoreClass {
 
   get content(): Promise<string> {
     const {htmlData, cssData, jsData, cssType, jsType} = this;
-    runInAction(() => {
-      this.clearConsole();
-    })
     return contentGenerator({
       htmlData,
       cssData,
@@ -345,7 +342,6 @@ class StoreClass {
   }
 
   reloadIFrame() {
-    this.clearConsole();
     this.reloadTrigger = !this.reloadTrigger;
   }
 

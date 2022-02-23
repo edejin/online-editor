@@ -5,6 +5,7 @@ import {Layout} from 'antd';
 import {observer} from 'mobx-react';
 import {ConsoleNotifications} from './ConsoleNotifications';
 import {PanelsGroup} from './PanelsGroup';
+import {HiddenIframe} from './HiddenIframe';
 
 const {Content} = Layout;
 
@@ -61,6 +62,7 @@ export const Body: React.FC = observer(() => {
         </Wrapper>
       </Content>
       <ConsoleNotifications show={showConsole}/>
+      <HiddenIframe/>
     </Layout>
   );
 });

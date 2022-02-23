@@ -3,13 +3,12 @@ import {Button} from 'antd';
 import {store} from '../store';
 import {ReloadOutlined} from '@ant-design/icons';
 
-export const ReloadButton = () => {
-  return (
-    <Button
-      type="primary"
-      onClick={() => store.reloadIFrame()}
-    >
-      <ReloadOutlined/>
-    </Button>
-  );
-};
+export const ReloadButton = () => (
+  <Button
+    title="Refresh"
+    type="primary"
+    onClick={() => store.reloadIFrame()}
+  >
+    <ReloadOutlined/>
+  </Button>
+);

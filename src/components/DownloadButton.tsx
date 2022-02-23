@@ -11,6 +11,7 @@ export const DownloadButton = observer(() => {
   } = store;
   return (
     <Button
+      title="Download"
       type="primary"
       onClick={() => fileContent.then((d) => downloadFile('text/html', 'file.html', d))}>
       <CloudDownloadOutlined/>

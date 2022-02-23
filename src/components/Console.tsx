@@ -91,7 +91,7 @@ export const Console: React.FC<Props> = observer(({index, top}: Props) => {
             const d = JSON.stringify(data);
             const label = moment(date).format('HH:mm:ss.SSS');
             return (
-              <Timeline.Item color={typeToColorTransformer(type)} key={d}>
+              <Timeline.Item color={typeToColorTransformer(type)} key={label}>
                 <Space align={'start'}>
                   <Text style={{whiteSpace: 'nowrap'}}>{label}</Text>
                   <Text type={typeTransformer(type)}>{d}</Text>
