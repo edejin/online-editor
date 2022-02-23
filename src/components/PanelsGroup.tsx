@@ -1,11 +1,13 @@
 import React, {useCallback} from 'react';
 import styled from 'styled-components';
 import {FieldTypes, store} from '../store';
-import {Editor} from './Editor';
 import {Console} from './Console';
 import {Out} from './Out';
 import {observer} from 'mobx-react';
 import {ResizerElement, ResizerSize} from './ResizerElement';
+import {HTMLPanel} from './HTMLPanel';
+import {StylePanel} from './StylePanel';
+import {ScriptPanel} from './ScriptPanel';
 
 interface Props {
   top: boolean;
@@ -35,11 +37,6 @@ export const PanelsGroup: React.FC<Props> = observer(({fields, top, height}: Pro
     showHtml,
     showOut,
     showConsole,
-    cssType,
-    jsType,
-    htmlData,
-    cssData,
-    jsData,
   } = store;
 
   let index = 0;
@@ -52,45 +49,21 @@ export const PanelsGroup: React.FC<Props> = observer(({fields, top, height}: Pro
               case FieldTypes.HTML:
                 if (showHtml) {
                   return (
-                    <Editor
-                      index={index++}
-                      data={htmlData}
-                      setter={(v) => store.setHtmlData(v)}
-                      mode="html"
-                      top={top}
-                      key={v}
-                      height={height}
-                    />
+                    <HTMLPanel top={top} index={index++} height={height} key={v}/>
                   );
                 }
                 return null;
               case FieldTypes.STYLE:
                 if (showCss) {
                   return (
-                    <Editor
-                      index={index++}
-                      data={cssData}
-                      setter={(v) => store.setCssData(v)}
-                      mode={cssType}
-                      top={top}
-                      key={v}
-                      height={height}
-                    />
+                    <StylePanel top={top} index={index++} height={height} key={v}/>
                   );
                 }
                 return null;
               case FieldTypes.SCRIPT:
                 if (showJs) {
                   return (
-                    <Editor
-                      index={index++}
-                      data={jsData}
-                      setter={(v) => store.setJsData(v)}
-                      mode={jsType}
-                      top={top}
-                      key={v}
-                      height={height}
-                    />
+                    <ScriptPanel top={top} index={index++} height={height} key={v}/>
                   );
                 }
                 return null;

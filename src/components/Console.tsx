@@ -82,7 +82,7 @@ export const Console: React.FC<Props> = observer(({index, top}: Props) => {
     } else {
       store.setBottomWidthByIndex(index, x);
     }
-  }, [top, index])
+  }, [top, index]);
   return (
     <ConsoleWrapper style={{flex: `0 0 ${(top ? topWidths : bottomWidths)[index]}px`}}>
       <ConsoleHolder>
