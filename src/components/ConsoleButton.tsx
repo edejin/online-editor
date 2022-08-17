@@ -1,10 +1,8 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {Button, Typography} from 'antd';
+import {Badge, Button} from 'antd';
 import {FieldTypes, store} from '../store';
 import {styleByType} from '../cmd/styleByType';
-
-const {Text} = Typography;
 
 const dragHandler = (t?: FieldTypes) => {
   store.setDrag(t);
@@ -21,7 +19,7 @@ export const ConsoleButton = observer(() => {
       onDrag={() => dragHandler(FieldTypes.CONSOLE)}
       onDragEnd={() => dragHandler()}
     >
-      <Text strong={!!console.length}>Console</Text>
+      <Badge dot={!!console.length}>Console</Badge>
     </Button>
   );
 });

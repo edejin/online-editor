@@ -7,20 +7,6 @@ import {loopProtect} from './loopProtect';
 /* eslint import/no-webpack-loader-syntax: off */
 import additionalJS from '!!raw-loader!../consts/additionalJS.js';
 
-const callback = (line: number) => {
-  // @ts-ignore Because this function not exist in this scope, but it's exist in `additionalJS`
-  infinityLoopError();
-  debugger;
-  throw new Error(`Bad loop on line ${line}`);
-};
-
-const timeout = 100;
-Babel.registerPlugin('loopProtection', loopProtect(timeout, callback));
-
-const loopProtection = (source: string) => Babel.transform(source, {
-  plugins: ['loopProtection'],
-}).code;
-
 interface Props {
   htmlData: string;
   cssData: string;
@@ -46,7 +32,14 @@ export const addToBody = (v: string, fragment: string): string => {
 
 const addAdditionalJS = (v: string) => `${additionalJS}${v}`;
 
-export const contentGenerator = async (props: Props) => {
+export const contentGenerator = async (props: Props, delay: number, func: string) => {
+  /* eslint no-new-func: off */
+  Babel.registerPlugin('loopProtection', loopProtect(delay, new Function('lineNumber', func)));
+
+  const loopProtection = (source: string) => Babel.transform(source, {
+    plugins: ['loopProtection'],
+  }).code;
+
   const {htmlData, cssData, jsData, cssType, jsType} = props;
   let res = htmlData;
   if (cssData) {

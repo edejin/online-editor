@@ -8,6 +8,8 @@ import defaultHTML from '!!raw-loader!../consts/defaultHTML.html';
 import defaultCss from '!!raw-loader!../consts/defaultCSS.css';
 /* eslint import/no-webpack-loader-syntax: off */
 import defaultJs from '!!raw-loader!../consts/defaultJS.js';
+/* eslint import/no-webpack-loader-syntax: off */
+import loopProtectionCallback from '!!raw-loader!../consts/loopProtectionCallback.js';
 
 export enum StyleTypes {
   CSS = 'css',
@@ -101,6 +103,8 @@ class StoreClass {
   jsData: string = defaultJs;
   reloadTrigger: boolean = true;
   console: ConsoleMessage[] = [];
+  loopProtectionDelay: number = 100;
+  loopProtectionFunction: string = loopProtectionCallback;
 
   constructor() {
     makeAutoObservable(this);
@@ -121,34 +125,36 @@ class StoreClass {
       this.jsType = JsTypes.TypeScript;
     }
     const {id} = getParams();
-    getPreset(id).then((data) => {
-      const {
-        css,
-        html,
-        javascript,
-        less,
-        typescript
-      } = data;
-      if (html) {
-        this.setHtmlData(html);
-      }
-      if (css) {
-        this.setCssData(css);
-        this.setCssType(StyleTypes.CSS);
-      }
-      if (less) {
-        this.setCssData(less);
-        this.setCssType(StyleTypes.Less);
-      }
-      if (javascript) {
-        this.setJsData(javascript);
-        this.setJsType(JsTypes.JS);
-      }
-      if (typescript) {
-        this.setJsData(typescript);
-        this.setJsType(JsTypes.TypeScript);
-      }
-    });
+    if (id) {
+      getPreset(id).then((data) => {
+        const {
+          css,
+          html,
+          javascript,
+          less,
+          typescript
+        } = data;
+        if (html) {
+          this.setHtmlData(html);
+        }
+        if (css) {
+          this.setCssData(css);
+          this.setCssType(StyleTypes.CSS);
+        }
+        if (less) {
+          this.setCssData(less);
+          this.setCssType(StyleTypes.Less);
+        }
+        if (javascript) {
+          this.setJsData(javascript);
+          this.setJsType(JsTypes.JS);
+        }
+        if (typescript) {
+          this.setJsData(typescript);
+          this.setJsType(JsTypes.TypeScript);
+        }
+      });
+    }
   }
 
   addToConsole(m: ConsoleMessage) {
@@ -186,7 +192,7 @@ class StoreClass {
       this.topHeight = 0;
     }
     if (bottomCount === 0) {
-      this.topHeight = this.height
+      this.topHeight = this.height;
     }
     if (topCount && bottomCount) {
       this.topHeight = this.height / 2;
@@ -238,14 +244,14 @@ class StoreClass {
   }
 
   get content(): Promise<string> {
-    const {htmlData, cssData, jsData, cssType, jsType} = this;
+    const {htmlData, cssData, jsData, cssType, jsType, loopProtectionDelay, loopProtectionFunction} = this;
     return contentGenerator({
       htmlData,
       cssData,
       jsData,
       cssType,
       jsType
-    });
+    }, loopProtectionDelay, loopProtectionFunction);
   }
 
   get fileContent(): Promise<string> {
@@ -387,6 +393,11 @@ class StoreClass {
 
   changeTopHeight(v: number) {
     this.topHeight += v;
+  }
+
+  updateLoopProtectionProps(delay: number, func: string) {
+    this.loopProtectionDelay = delay;
+    this.loopProtectionFunction = func;
   }
 }
 

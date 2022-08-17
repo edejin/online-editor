@@ -5,13 +5,13 @@ import {store} from '../store';
 import styled from 'styled-components';
 import {BaseType} from 'antd/lib/typography/Base';
 import moment from 'moment';
-import { red, orange, grey, green } from '@ant-design/colors';
+import {red, orange, grey, green} from '@ant-design/colors';
 import {ResizerElement} from './ResizerElement';
 
-const { Text } = Typography;
+const {Text} = Typography;
 
 export enum MessageTypes {
-  log= 'log',
+  log = 'log',
   info = 'info',
   warn = 'warn',
   error = 'error',
@@ -35,7 +35,7 @@ const ConsoleHolder = styled.div`
   padding: 16px;
   overflow: auto;
   display: flex;
-  
+
   & > * {
     flex: 1 1 auto;
   }
@@ -58,7 +58,7 @@ const typeTransformer = (t: MessageTypes): BaseType | undefined => {
     default:
       return 'success';
   }
-}
+};
 
 const typeToColorTransformer = (t: MessageTypes): string => {
   switch (t) {
@@ -72,7 +72,7 @@ const typeToColorTransformer = (t: MessageTypes): string => {
     default:
       return green.primary!;
   }
-}
+};
 
 export const Console: React.FC<Props> = observer(({index, top}: Props) => {
   const {topWidths, console, bottomWidths} = store;

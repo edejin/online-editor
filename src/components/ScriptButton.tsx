@@ -1,10 +1,8 @@
 import React from 'react';
-import {Button, Dropdown, Menu, Typography} from 'antd';
+import {Badge, Button, Dropdown, Menu} from 'antd';
 import {FieldTypes, JsTypes, JsTypesNames, store} from '../store';
 import {observer} from 'mobx-react';
 import {styleByType} from '../cmd/styleByType';
-
-const {Text} = Typography;
 
 const dragHandler = (t?: FieldTypes) => {
   store.setDrag(t);
@@ -33,7 +31,7 @@ export const ScriptButton = observer(() => {
         onDrag={() => dragHandler(FieldTypes.SCRIPT)}
         onDragEnd={() => dragHandler()}
       >
-        <Text strong={jsChanged}>{JsTypesNames[jsType]}</Text>
+        <Badge dot={jsChanged}>{JsTypesNames[jsType]}</Badge>
       </Button>
     </Dropdown>
   );

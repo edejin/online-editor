@@ -18,26 +18,29 @@ interface Props {
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 `;
 
 const InnerWrapper = styled.div`
   display: flex;
   flex: 0 0 calc(100% - ${ResizerSize}px);
+  height: calc(100% - ${ResizerSize}px);
 `;
 
 export const PanelsGroup: React.FC<Props> = observer(({fields, top, height}: Props) => {
-  const resizerCallback = useCallback(({y}) => {
-    if (top) {
-      store.changeTopHeight(y);
-    }
-  }, [top]);
   const {
     showJs,
     showCss,
     showHtml,
     showOut,
     showConsole,
+    bottomColumnCount
   } = store;
+  const resizerCallback = useCallback(({y}) => {
+    if (top && bottomColumnCount) {
+      store.changeTopHeight(y);
+    }
+  }, [top, bottomColumnCount]);
 
   let index = 0;
   return (

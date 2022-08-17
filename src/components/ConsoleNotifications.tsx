@@ -53,7 +53,7 @@ export const ConsoleNotifications: React.FC<Props> = observer(({show}: Props) =>
             break;
           case MessageTypes.infinityLoopError:
             notification.error({
-              message: 'Possible infinty loop'
+              message: 'Possible infinity loop'
             });
             break;
           case MessageTypes.clear:

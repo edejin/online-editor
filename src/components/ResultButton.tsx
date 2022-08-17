@@ -1,10 +1,8 @@
 import React from 'react';
 import {observer} from 'mobx-react';
-import {Button, Typography} from 'antd';
+import {Button} from 'antd';
 import {FieldTypes, store} from '../store';
 import {styleByType} from '../cmd/styleByType';
-
-const {Text} = Typography;
 
 const dragHandler = (t?: FieldTypes) => {
   store.setDrag(t);
@@ -21,7 +19,7 @@ export const ResultButton = observer(() => {
       onDrag={() => dragHandler(FieldTypes.RESULT)}
       onDragEnd={() => dragHandler()}
     >
-      <Text>Result</Text>
+      Result
     </Button>
   );
 });
